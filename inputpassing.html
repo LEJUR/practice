@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inputpassing1</title>
+    
+</head>
+<body>
+    <form id="form">
+        <div>
+            <label for="Firstname"> Firstname</label>
+            <input id="firstname" type="text" placeholder="Firstname">
+        </div>
+        <div>
+            <label for="Lastname">Lastname</label>
+            <input type="text" id="lastname" placeholder="Lastname">
+        </div>
+        <div>
+            <button type="submit">Submit</button>       
+         </div>
+    </form>
+
+    <script>
+        const form=document.getElementById('form');
+        const firstname=document.getElementById('firstname');
+        const lastname=document.getElementById('lastname');
+
+
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+
+            const fname=firstname.value;
+            const lname=lastname.value;
+
+            localStorage.setItem('first-name', fname);
+            localStorage.setItem('last-name', lname);
+
+            window.location.href="page2.html";
+            
+        })
+
+    </script>
+</body>
+</html>

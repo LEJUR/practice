@@ -1,0 +1,100 @@
+header {
+    text-align: center; /* Center the text */
+    padding: 20px; /* Add some padding */
+    background-color: #f0f0f0; /* Optional: background color */
+    font-size: 24px; /* Optional: font size */
+    font-family: Arial, sans-serif; 
+}
+body {
+    margin: 0; /* Remove default margin */
+    font-family: Arial, sans-serif; /* Set a default font */
+}
+nav {
+    text-align: center; /* Center the navbar items */
+    background-color: #e0e0e0; /* Optional: background color for navbar */
+    padding: 10px 0; /* Add some padding */
+}
+nav ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+nav ul li {
+    display: inline; /* Display list items in a line */
+    margin: 0 15px; /* Add space between items */
+}
+nav ul li a {
+    text-decoration: none; /* Remove underline from links */
+    color: #333; /* Set link color */
+    font-size: 18px; /* Optional: font size for links */
+}
+.container {
+    display: flex; /* Use flexbox for layout */
+    margin-top: 20px; /* Space below the navbar */
+    width: 100%; /* Full width */
+}
+.side-nav {
+    width: 200px; /* Set width for side navigation */
+    background-color: #f9f9f9; /* Background color for side nav */
+    padding: 15px; /* Add some padding */
+    position: fixed; /* Fix the side nav */
+    top: 70px; /* Align below the header */
+    bottom: 0; /* Align to the bottom */
+}
+.side-nav ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+.side-nav ul li {
+    margin: 10px 0; /* Space between items */
+}
+.side-nav ul li a {
+    text-decoration: none; /* Remove underline from links */
+    color: #333; /* Set link color */
+}
+.content {
+    margin-left: 220px; /* Space for side navigation */
+    padding: 20px; /* Add some padding */
+    background-color: black;
+    height:600px;
+    
+}
+img {
+    width: auto;
+    height: 600px;
+    margin: 80px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.container {
+    display: flex; /* Use flexbox for layout */
+    margin-top: 20px; /* Space below the navbar */
+    width: 100%; /* Full width */
+}
+.side-nav {
+    width: 200px; /* Set width for side navigation */
+    background-color: #f9f9f9; /* Background color for side nav */
+    padding: 15px; /* Add some padding */
+    position: fixed; /* Fix the side nav */
+    top: 110px; /* Align below the header */
+    bottom: 0; /* Align to the bottom */
+    text-align: center;
+}
+.side-nav ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+.side-nav ul li {
+    margin: 60px 0; /* Space between items */
+}
+.side-nav ul li a {
+    text-decoration: none; /* Remove underline from links */
+    color: #333; /* Set link color */
+}
+.content {
+    margin-left: 220px; /* Space for side navigation */
+    padding: 20px; /* Add some padding */
+    flex-grow: 1; /* Allow content to grow */
+}

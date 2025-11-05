@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inputpasssingpage2</title>
+</head>
+<body>
+
+    <h1>Data from previous page</h1>
+    <div>Firstname:<br><span id="first-name"></span></div>
+    <div>Lastname:<br><span id="last-name"></span></div>
+    <script>
+       const firstname= localStorage.getItem('first-name');
+       const lastname= localStorage.getItem('last-name');
+
+       document.getElementById('first-name').textContent=firstname;
+       document.getElementById('last-name').textContent=lastname;
+
+    </script>
+    
+</body>
+</html>

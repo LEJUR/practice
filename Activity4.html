@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <title>Activity 4</title>
+  <link rel="stylesheet" href="baw.css">
+</head>
+<body>
+  
+  <table>
+    <tr>
+      <th colspan="4"><h2>Basic Information</h2></th>
+    </tr>
+    <tr>
+      <td><input type="text" id="tbuser"></td>
+      <td><input type="text" id="fn"></td>
+      <td><input type="text" id="mn"></td>
+    </tr>
+    <tr>
+      <th>Lastname</th>
+      <th>Firstname</th>
+      <th>Middlename</th>
+    </tr>
+    <tr>
+      <th>Sex</th>
+      <td><input type="radio" name="sex">Male<input type="radio" name="sex">Female</td>
+      <th>Date of Birth</th>
+      <td><input type="date"></td>
+    </tr>
+    <tr>
+      <th>Degree Program</th>
+      <td colspan="2">
+        <select>
+          <option value="BSIT">Bachelor of Science in Information Technology</option>
+          <option value="BIT">Bachelor of Industrial Technology</option>
+          <option value="BSHM">Bachelor of Science in Hospotality Management</option>
+          <option value="BEED">Bachelor of Elementary Education</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <th>Year</th>
+      <td colspan="2">
+        <select>
+          <option value="1st Year">First Year</option>
+          <option value="2nd Year">Second Year</option>
+          <option value="3rd Year">Third Year</option>
+          <option value="4th Year">Fourth Year</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <th>Mother's Maiden Name</th>
+      <td><input type="text"></td>
+      <th>Occupation</th>
+      <td><input type="text"></td>
+    </tr>
+    <tr>
+      <th>Father's Name</th>
+      <td><input type="text"></td>
+      <th>Occupation</th>
+      <td><input type="text"></td>   
+    </tr>
+    <tr>
+      <th colspan="4"><h2>Educational Background</h2></th>   
+    </tr>
+    <tr>
+      <th colspan="1"></th>
+      <th>Name of School</th>
+      <th>Address of School</th>
+      <th>Year Graduated</th>
+    </tr>
+    <tr>
+      <th>Tertiary</th>
+      <th><input type="text"></th>
+      <th><input type="text"></th>
+      <th><input type="text"></th>
+    </tr>
+    <tr>
+      <th>Secondary</th>
+      <th><input type="text"></th>
+      <th><input type="text"></th>
+      <th><input type="text"></th>
+    </tr>
+    <tr>
+      <th>Primary</th>
+      <th><input type="text"></th>
+      <th><input type="text"></th>
+      <th><input type="text"></th>
+    </tr>
+    <tr>
+      <th colspan="4"><input type="submit" id="btn1"></th>
+    </tr>
+      
+    <p class="output" id="output1"></p>
+    <p class="output" id="output2"></p>
+    <p class="output" id="output3"></p>
+
+   
+      
+  </table>
+
+  
+
+  <script>
+    const txt1=document.getElementById('tbuser');
+    const txt2=document.getElementById('fn');
+    const txt3=document.getElementById('mn');
+    const btn1=document.getElementById('btn1');
+    const out1=document.getElementById('output1');
+    const out2=document.getElementById('output2');
+    const out3=document.getElementById('output3');
+
+    function fun1(){
+      out1.innerHTML=txt1.value;
+      out2.innerHTML=txt2.value;
+      out3.innerHTML=txt3.value;
+    }
+
+   
+
+    btn1.addEventListener('click', fun1);
+   
+  </script>
+    
+  
+    
+</body>
+</html>

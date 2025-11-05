@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Calculator</title>
+  <style>
+    :root {
+      --bg: #0f172a;        /* slate-900 */
+      --panel: #111827;     /* gray-900 */
+      --btn: #1f2937;       /* gray-800 */
+      --btn-hover: #374151; /* gray-700 */
+      --accent: #22c55e;    /* green-500 */
+      --danger: #ef4444;    /* red-500 */
+      --text: #e5e7eb;      /* gray-200 */
+      --muted: #9ca3af;     /* gray-400 */
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(1200px 1200px at 10% 10%, #1f2937 0%, var(--bg) 50%);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    .calc {
+      width: min(92vw, 360px);
+      background: linear-gradient(180deg, #0b1222, var(--panel));
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.04);
+      overflow: hidden;
+    }
+
+    .display {
+      padding: 20px 16px 10px;
+      background: linear-gradient(180deg, rgba(34,197,94,.08), transparent);
+    }
+
+    .screen {
+      width: 100%;
+      border: 0;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      text-align: right;
+      font-size: 34px;
+      line-height: 1.4;
+      padding: 6px 8px;
+      border-radius: 12px;
+    }
+
+    .subscreen {
+      height: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: right;
+      margin-top: 2px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      min-height: 1em;
+    }
+
+    .keys {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 14px;
+      background: linear-gradient(180deg, rgba(17,24,39,.6), rgba(17,24,39,.9));
+    }
+
+    button {
+      appearance: none;
+      border: none;
+      border-radius: 14px;
+      padding: 16px 14px;
+      font-size: 18px;
+      color: var(--text);
+      background: var(--btn);
+      box-shadow: inset 0 -2px 0 rgba(255,255,255,.02), 0 6px 14px rgba(0,0,0,.4);
+      cursor: pointer;
+      transition: transform .04s ease, background .15s ease;
+      user-select: none;
+    }
+
+    button:hover { background: var(--btn-hover); }
+    button:active { transform: translateY(1px) scale(.98); }
+
+    .span-2 { grid-column: span 2; }
+
+    .op { background: #0b3d2a; }
+    .op:hover { background: #115338; }
+
+    .equals { background: var(--accent); color: #051b0e; font-weight: 700; }
+    .equals:hover { filter: brightness(1.05); }
+
+    .danger { background: #3b1111; }
+    .danger:hover { background: #511717; }
+
+    .muted { color: var(--muted); }
+
+    footer { text-align: center; font-size: 12px; color: var(--muted); padding: 8px 0 14px; }
+    kbd { background:#0b1222; padding:2px 6px; border-radius:6px; border:1px solid rgba(255,255,255,.06); }
+  </style>
+</head>
+<body>
+  <main class="calc" role="application" aria-label="Calculator">
+    <div class="display">
+      <input class="screen" id="screen" type="text" value="0" inputmode="decimal" aria-live="polite" aria-label="Calculator display" readonly />
+      <div class="subscreen" id="history" aria-hidden="true"></div>
+    </div>
+    <div class="keys" id="keys" aria-label="Calculator keys">
+      <button class="op" data-action="mplus">M+</button>
+      <button class="op" data-action="mminus">M-</button>
+      <button class="op" data-action="mr">MR</button>
+      <button class="danger" data-action="clear" title="Clear (Esc)">AC</button>
+      <button class="danger" data-action="del" title="Delete (Backspace)">DEL</button>
+      <button class="op" data-value="%" title="Percent">%</button>
+      <button class="op" data-value="/" title="Divide (/)">÷</button>
+
+      <button data-value="7">7</button>
+      <button data-value="8">8</button>
+      <button data-value="9">9</button>
+      <button class="op" data-value="*" title="Multiply (*)">×</button>
+
+      <button data-value="4">4</button>
+      <button data-value="5">5</button>
+      <button data-value="6">6</button>
+      <button class="op" data-value="-" title="Minus (-)">−</button>
+
+      <button data-value="1">1</button>
+      <button data-value="2">2</button>
+      <button data-value="3">3</button>
+      <button class="op" data-value="+" title="Plus (+)">+</button>
+
+      <button class="span-2" data-value="0">0</button>
+      <button data-value=".">.</button>
+      <button class="equals" data-action="equals" title="Equals (=)">=</button>
+    </div>
+    <footer>
+      Tip: Use your keyboard too — <kbd>0-9</kbd>, <kbd>+</kbd> <kbd>-</kbd> <kbd>*</kbd> <kbd>/</kbd>, <kbd>.</kbd>, <kbd>=</kbd>, <kbd>Enter</kbd>, <kbd>Backspace</kbd>, <kbd>Esc</kbd>
+    </footer>
+  </main>
+
+  <script>
+    // NOTE: You asked for HTML & CSS. Pure HTML/CSS can't do math, so this tiny script wires up the logic.
+    (function () {
+      const screen = document.getElementById('screen');
+      const history = document.getElementById('history');
+      const keys = document.getElementById('keys');
+
+      let expr = '0';
+
+      const isOp = (c) => ['+','-','*','/'].includes(c);
+
+      function update(val = expr) {
+        screen.value = val;
+      }
+
+      function append(token) {
+        if (expr === '0' && /[0-9.]/.test(token)) {
+          expr = token === '.' ? '0.' : token; return update();
+        }
+        const last = expr.slice(-1);
+        if (isOp(token)) {
+          if (expr === '' || isOp(last)) {
+            // replace last operator
+            expr = expr.replace(/[+\-*/%]+$/, '') + token;
+          } else {
+            expr += token;
+          }
+          return update();
+        }
+        if (token === '.') {
+          // prevent multiple dots in the current number chunk
+          const chunk = expr.split(/[+\-*/]/).pop();
+          if (chunk.includes('.')) return; 
+        }
+        expr += token; update();
+      }
+
+      function clearAll() { expr = '0'; update(); history.textContent = ''; }
+      function delOne() {
+        if (expr.length <= 1) { expr = '0'; return update(); }
+        expr = expr.slice(0, -1); if (expr === '' || expr === '-') expr = '0'; update();
+      }
+
+      function safeEval(raw) {
+        // Turn % into /100 before evaluating; strip invalid chars.
+        let s = raw.replace(/%/g, '/100');
+        if (!/^[0-9+\-*/.()\s/]+$/.test(s)) throw new Error('Invalid');
+        // Avoid eval risks by using Function in a limited way
+        // and rounding to avoid floating-point noise.
+        const res = Function('return (' + s + ')')();
+        if (typeof res !== 'number' || !isFinite(res)) throw new Error('Bad math');
+        return Math.round(res * 1e12) / 1e12;
+      }
+
+      function compute() {
+        try {
+          const result = safeEval(expr);
+          history.textContent = expr + ' =';
+          expr = String(result);
+          update(expr);
+          // Send result to database
+          fetch('calculator.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'result=' + encodeURIComponent(result)
+          })
+          .then(response => response.text())
+          .then(data => {
+            console.log(data);
+          })
+          .catch(error => {
+            console.log('Error saving result:', error);
+          });
+        } catch (e) {
+          update('Error');
+          setTimeout(() => { update(expr); }, 700);
+        }
+      }
+
+      keys.addEventListener('click', (e) => {
+        const t = e.target.closest('button');
+        if (!t) return;
+        const action = t.dataset.action;
+        const val = t.dataset.value;
+        if (action === 'clear') return clearAll();
+        if (action === 'del') return delOne();
+        if (action === 'equals') return compute();
+        if (val) return append(val);
+      });
+
+      // Keyboard support
+      window.addEventListener('keydown', (e) => {
+        const k = e.key;
+        if (/^[0-9]$/.test(k)) return append(k);
+        if (['+','-','*','/','.','%'].includes(k)) return append(k);
+        if (k === 'Enter' || k === '=') { e.preventDefault(); return compute(); }
+        if (k === 'Backspace') return delOne();
+        if (k === 'Escape') return clearAll();
+      });
+
+      update();
+    })();
+  </script>
+</body>
+</html>
